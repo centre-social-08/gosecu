@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name" translatable="false">23_01_WIS</string>
+    <string name="dislike">Dislike</string>
+    <string name="like">Like</string>
+    <string name="complement">Complement :</string>
+    <string name="write_name_here">Write name here</string>
+    <string name="cancel">Cancel</string>
+    <string name="validate">Validate</string>
+</resources>

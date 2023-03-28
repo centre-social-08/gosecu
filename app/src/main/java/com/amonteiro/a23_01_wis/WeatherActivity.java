@@ -42,6 +42,7 @@ public class WeatherActivity extends AppCompatActivity {
                     }
                     catch (Exception e) {
                         e.printStackTrace();
+                        //Mettre à jour les composants graphique
                     }
                 }
             }).start();

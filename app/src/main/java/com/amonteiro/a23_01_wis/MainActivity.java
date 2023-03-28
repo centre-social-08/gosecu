@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Création du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0,1,0,"Météo");
@@ -54,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Clic sur le menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //Lancement du nouvel écran
         startActivity(new Intent(this, WeatherActivity.class));
         return super.onOptionsItemSelected(item);
     }

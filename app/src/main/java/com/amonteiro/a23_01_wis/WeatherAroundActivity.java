@@ -1,6 +1,7 @@
 package com.amonteiro.a23_01_wis;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Bundle;
 
@@ -18,6 +19,9 @@ public class WeatherAroundActivity extends AppCompatActivity {
     //Données
     ArrayList<WindBean> data = new ArrayList<>();
 
+    //outils
+    WindAdapter adapter = new WindAdapter();
+
     double number = 1.0;
 
 
@@ -30,11 +34,19 @@ public class WeatherAroundActivity extends AppCompatActivity {
         //Affichage
         setContentView(binding.getRoot());
 
+        //Réglage RecyclerView
+        binding.rv.setAdapter(adapter);
+        //Combien de colonnes on veut.
+        binding.rv.setLayoutManager(new GridLayoutManager(this, 2));
+
         binding.btAdd.setOnClickListener(v -> {
             //Je crée une fake donnée dans ma liste
-            data.add(new WindBean(number++));
+            data.add(0,new WindBean(number++));
 
             //Affichage
+            //Je retourne une référence differente à chaque fois pour
+            //Que l'adapter actualise
+            adapter.submitList(new ArrayList<>(data));
             refreshScreen();
         });
 
@@ -44,6 +56,7 @@ public class WeatherAroundActivity extends AppCompatActivity {
                 data.remove(0);
             }
             //Affichage
+            adapter.submitList(new ArrayList<>(data));
             refreshScreen();
         });
 

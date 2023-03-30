@@ -12,6 +12,9 @@
         android:theme="@style/Theme.23_01_WIS"
         tools:targetApi="31">
         <activity
+            android:name=".FirebaseExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".WeatherAroundActivity"
             android:exported="false" />
         <activity

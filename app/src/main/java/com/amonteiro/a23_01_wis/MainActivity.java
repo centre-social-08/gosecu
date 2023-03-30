@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0,1,0,"Météo");
         menu.add(0,5,0,"RecyclerView");
+        menu.add(0,6,0,"Firebase");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -62,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
         else if(item.getItemId() == 5) {
             startActivity(new Intent(this, WeatherAroundActivity.class));
         }
+        else if(item.getItemId() == 6) {
+            startActivity(new Intent(this, FirebaseExampleActivity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -49,30 +49,28 @@ public class FirebaseExampleActivity extends AppCompatActivity {
                     .build();
             signInLauncher.launch(signInIntent);
         });
+
+        binding.tvDeconnexion.setOnClickListener(v -> {
+            AuthUI.getInstance()
+                    .signOut(this)
+                    //callback
+                    .addOnCompleteListener(task -> {
+                        //La deconnexion a eu lieu j'actualise l'écran
+                        refreshScreen();
+                    });
+        });
+
+        binding.fab.setOnClickListener(v -> {
+            startActivity(new Intent(this, CreateGameActivity.class));
+        });
     }
 
-    //LKe callback l'écran devient visible
+    //Le callback l'écran devient visible
+    //Si jamais la connexion a évoluée pendant que l'écran étant en arrière plan
     @Override
     protected void onStart() {
         super.onStart();
-
         refreshScreen();
-    }
-
-    //Clic gérer par l'attribut onClick dans le XML
-    public void onBtAddGameClick(View view) {
-        startActivity(new Intent(this, CreateGameActivity.class));
-    }
-
-    //Clic gérer par l'attribut onClick dans le XML
-    public void onBtDeconnexionClick(View view) {
-        AuthUI.getInstance()
-                .signOut(this)
-                //callback
-                .addOnCompleteListener(task -> {
-                    //La deconnexion a eu lieu j'actualise l'écran
-                    refreshScreen();
-                });
     }
 
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {

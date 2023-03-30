@@ -21,36 +21,35 @@ public class CreateGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCreateGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-    }
 
-    //onClick dans le XML du bouton
-    public void onBtCreateClick(View view) {
-        String text = binding.etTeam1.getText().toString().trim();
-        String text2 = binding.etTeam2.getText().toString().trim();
+        binding.tvAdd.setOnClickListener(v -> {
+            String text = binding.etTeam1.getText().toString().trim();
+            String text2 = binding.etTeam2.getText().toString().trim();
 
-        if (text.length() < 3) {
-            binding.etTeam1.setError("Il faut au moins 3 caractères");
-        }
-        else if (text2.length() < 3) {
-            binding.etTeam1.setError("Il faut au moins 3 caractères");
-        }
-        else if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            finish();
-        }
-        else {
-            //Nouveau Match
-            MatchBean match = new MatchBean(null, text, text2, null, 0, 0, new Date().getTime());
-            MatchFirebaseRepo.create(match)
-                    //Callback ca marche
-                    .addOnSuccessListener(documentReference -> {
-                        //Je tue l'écran courant ca reveint sur l'écran d'avant
-                        finish();
-                    })
-                    //Callback ca marche pas
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Fail : " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        e.printStackTrace();
-                    });
-        }
+            if (text.length() < 3) {
+                binding.etTeam1.setError("Il faut au moins 3 caractères");
+            }
+            else if (text2.length() < 3) {
+                binding.etTeam1.setError("Il faut au moins 3 caractères");
+            }
+            else if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                finish();
+            }
+            else {
+                //Nouveau Match
+                MatchBean match = new MatchBean(null, text, text2, null, 0, 0, new Date().getTime());
+                MatchFirebaseRepo.create(match)
+                        //Callback ca marche
+                        .addOnSuccessListener(documentReference -> {
+                            //Je tue l'écran courant cela retourne sur l'écran précédent
+                            finish();
+                        })
+                        //Callback ca marche pas
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(this, "Fail : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        });
+            }
+        });
     }
 }

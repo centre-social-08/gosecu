@@ -29,6 +29,7 @@ public class FirebaseExampleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         binding = ActivityFirebaseExampleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -60,7 +61,7 @@ public class FirebaseExampleActivity extends AppCompatActivity {
 
     //Clic gérer par l'attribut onClick dans le XML
     public void onBtAddGameClick(View view) {
-        refreshScreen();
+        startActivity(new Intent(this, CreateGameActivity.class));
     }
 
     //Clic gérer par l'attribut onClick dans le XML

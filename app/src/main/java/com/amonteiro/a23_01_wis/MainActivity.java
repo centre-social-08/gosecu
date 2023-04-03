@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        System.out.println("oncreate");
-
-
         //Créer l'interface
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         //Affichage
@@ -47,10 +44,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //Création du menu
+    //Créeer le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0,1,0,"Météo");
+        menu.add(0,5,0,"RecyclerView");
+        menu.add(0,6,0,"Firebase");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -58,8 +57,17 @@ public class MainActivity extends AppCompatActivity {
     //Clic sur le menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //Lancement du nouvel écran
-        startActivity(new Intent(this, WeatherActivity.class));
+        if(item.getItemId() == 1) {
+            startActivity(new Intent(this, WeatherActivity.class));
+        }
+        else if(item.getItemId() == 5) {
+            startActivity(new Intent(this, WeatherAroundActivity.class));
+        }
+        else if(item.getItemId() == 6) {
+            startActivity(new Intent(this, FirebaseExampleActivity.class));
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
 }

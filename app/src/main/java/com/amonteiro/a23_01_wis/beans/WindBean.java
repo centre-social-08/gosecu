@@ -4,6 +4,12 @@ public class WindBean {
 
     private double speed;
 
+    public WindBean() {
+    }
+
+    public WindBean(double speed) {
+        this.speed = speed;
+    }
 
     public double getSpeed() {
         return speed;

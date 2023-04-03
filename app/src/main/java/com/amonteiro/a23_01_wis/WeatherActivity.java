@@ -1,54 +1,66 @@
 package com.amonteiro.a23_01_wis;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 
-import com.amonteiro.a23_01_wis.beans.WeatherBean;
 import com.amonteiro.a23_01_wis.databinding.ActivityWeatherBinding;
+import com.amonteiro.a23_01_wis.viewmodel.WeatherViewModel;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    //IHM
     ActivityWeatherBinding binding;
+    //Donnée
+    WeatherViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Créer l'ihm
         binding = ActivityWeatherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //créer le model
+        model = new ViewModelProvider(this).get(WeatherViewModel.class);
+
+        //Je connecte mes observateur aux données
+        observe();
+
         //clic du bouton
         binding.btLoad.setOnClickListener(v -> {
+            model.loadData("Nice");
+        });
+    }
 
-            binding.progressBar.setVisibility(View.VISIBLE);
+    private void observe(){
+        //Observation de la donnée sur le message d'erreur
+        model.getErrorMessage().observe(this, newData->{
+            //2me donnée erreur
+            if (newData != null) {
+                binding.tvError.setText(newData);
+                binding.tvError.setVisibility(View.VISIBLE);
+            }
+            else {
+                binding.tvError.setVisibility(View.GONE);
+            }
+        } );
 
-            //Création d'une tache asynchrone (execution en parallel.)
-            new Thread(() -> {
+        model.getData().observe(this, newData->{
+            //1er donnée data
+            if (newData != null) {
+                binding.tv.setText("A " + newData.getName() + " il fait " + newData.getMain().getTemp() + "° avec un vent de " +
+                        newData.getWind().getSpeed() + "km/h");
+            }
+            else {
+                binding.tv.setText("-");
+            }
+        });
 
-                try {
-                    //Requête
-                    WeatherBean data =  RequestUtils.loadWeather("Nice");
-
-                    //Affichage des données
-                    //Il garantie son execution sur le Thread Graphique/ UIThread/ MainThread
-                    runOnUiThread(() -> {
-                        binding.tv.setText("A " + data.getName() + " il fait " + data.getMain().getTemp() + "° avec un vent de " +
-                                data.getWind().getSpeed() + "km/h");
-                        binding.progressBar.setVisibility(View.GONE);
-                    });
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                    //Mettre à jour les composants graphique
-                    runOnUiThread(() -> {
-                        binding.tv.setText("Une erreur est survenue : " + e.getMessage());
-                        binding.progressBar.setVisibility(View.GONE);
-                    });
-
-                }
-            }).start();
-
+        model.getRunInProgress().observe(this, newData->{
+            binding.progressBar.setVisibility(newData ? View.VISIBLE : View.GONE);
         });
     }
 }

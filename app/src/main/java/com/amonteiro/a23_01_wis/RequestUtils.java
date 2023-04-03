@@ -54,6 +54,7 @@ public class RequestUtils {
     public static WeatherBean loadWeather(String cityName) throws Exception {
         String json = sendGet("https://api.openweathermap.org/data/2.5/weather?appid=b80967f0a6bd10d23e44848547b26550&units=metric&lang=fr&q=" + cityName);
 
+        Thread.sleep(5000);
         Gson gson = new Gson();
         WeatherBean data =  gson.fromJson(json, WeatherBean.class);
         return data;

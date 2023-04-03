@@ -33,7 +33,7 @@ public class WeatherActivity extends AppCompatActivity {
                     //Affichage des données
                     //Il garantie son execution sur le Thread Graphique/ UIThread/ MainThread
                     runOnUiThread(() -> {
-                        binding.textView.setText("A " + data.getName() + " il fait " + data.getMain().getTemp() + "° avec un vent de " +
+                        binding.tv.setText("A " + data.getName() + " il fait " + data.getMain().getTemp() + "° avec un vent de " +
                                 data.getWind().getSpeed() + "km/h");
                         binding.progressBar.setVisibility(View.GONE);
                     });
@@ -42,7 +42,7 @@ public class WeatherActivity extends AppCompatActivity {
                     e.printStackTrace();
                     //Mettre à jour les composants graphique
                     runOnUiThread(() -> {
-                        binding.textView.setText("Une erreur est survenue : " + e.getMessage());
+                        binding.tv.setText("Une erreur est survenue : " + e.getMessage());
                         binding.progressBar.setVisibility(View.GONE);
                     });
 

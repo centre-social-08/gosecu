@@ -1,5 +1,8 @@
 package com.amonteiro.a23_01_wis;
 
+import com.amonteiro.a23_01_wis.beans.PokemonBean;
+import com.amonteiro.a23_01_wis.beans.PokemonUnitBean;
+import com.amonteiro.a23_01_wis.beans.PokemonUnitResultBean;
 import com.amonteiro.a23_01_wis.beans.WeatherBean;
 import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
@@ -7,6 +10,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 public class RequestUtils {
     public static void main(String[] args) {
         try {
@@ -18,6 +24,31 @@ public class RequestUtils {
         }
 
         System.out.println("Fin");
+    }
+
+    public static List<PokemonUnitBean> loadPokemonUnit() throws Exception {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://pokemon-unite-pokemons.p.rapidapi.com/pokemon?page=1&pageSize=10")
+                .get()
+                .addHeader("X-RapidAPI-Key", "93329c7cf9msha136bd696cd1040p10a1dejsnbc52cdb0746e")
+                .addHeader("X-RapidAPI-Host", "pokemon-unite-pokemons.p.rapidapi.com")
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        Gson gson = new Gson();
+        PokemonUnitResultBean data =  gson.fromJson(response.body().string(), PokemonUnitResultBean.class);
+        return data.getItems();
+    }
+
+    public static List<PokemonBean> loadRandomPokemon() throws Exception {
+        String json = sendGet("https://www.amonteiro.fr/api/pokemonN4");
+
+        Gson gson = new Gson();
+        PokemonBean[] data =  gson.fromJson(json, PokemonBean[].class);
+        return Arrays.asList(data);
     }
 
     public static WeatherBean loadWeather(String cityName) throws Exception {

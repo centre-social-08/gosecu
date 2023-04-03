@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         menu.add(0,1,0,"Météo");
         menu.add(0,5,0,"RecyclerView");
         menu.add(0,6,0,"Firebase");
+        menu.add(0,7,0,"Pokemon");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(item.getItemId() == 6) {
             startActivity(new Intent(this, FirebaseExampleActivity.class));
+        }
+else if(item.getItemId() == 7) {
+            startActivity(new Intent(this, PokemonActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

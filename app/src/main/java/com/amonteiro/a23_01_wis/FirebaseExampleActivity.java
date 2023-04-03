@@ -39,7 +39,6 @@ public class FirebaseExampleActivity extends AppCompatActivity {
 
         //Réglages
         binding.rv.setLayoutManager(new GridLayoutManager(this, 1));
-
         binding.tvConnexion.setOnClickListener(v -> {
 
             //Les types de connexion qu'on souhaite

@@ -21,32 +21,33 @@ public class WeatherActivity extends AppCompatActivity {
         //clic du bouton
         binding.btLoad.setOnClickListener(v -> {
 
+            binding.progressBar.setVisibility(View.VISIBLE);
+
             //Création d'une tache asynchrone (execution en parallel.)
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            new Thread(() -> {
 
-                    try {
-                        //Requête
-                        WeatherBean data =  RequestUtils.loadWeather("Nice");
+                try {
+                    //Requête
+                    WeatherBean data =  RequestUtils.loadWeather("Nice");
 
-                        //Affichage des données
-                        //Il garantie son execution sur le Thread Graphique/ UIThread/ MainThread
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.textView.setText("A " + data.getName() + " il fait " + data.getMain().getTemp() + "° avec un vent de " +
-                                        data.getWind().getSpeed() + "km/h");
-                            }
-                        });
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                        //Mettre à jour les composants graphique
-                    }
+                    //Affichage des données
+                    //Il garantie son execution sur le Thread Graphique/ UIThread/ MainThread
+                    runOnUiThread(() -> {
+                        binding.textView.setText("A " + data.getName() + " il fait " + data.getMain().getTemp() + "° avec un vent de " +
+                                data.getWind().getSpeed() + "km/h");
+                        binding.progressBar.setVisibility(View.GONE);
+                    });
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    //Mettre à jour les composants graphique
+                    runOnUiThread(() -> {
+                        binding.textView.setText("Une erreur est survenue : " + e.getMessage());
+                        binding.progressBar.setVisibility(View.GONE);
+                    });
+
                 }
             }).start();
-
 
         });
     }

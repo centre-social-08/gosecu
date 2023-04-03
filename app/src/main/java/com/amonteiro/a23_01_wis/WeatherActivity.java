@@ -1,12 +1,17 @@
 package com.amonteiro.a23_01_wis;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 
 import com.amonteiro.a23_01_wis.databinding.ActivityWeatherBinding;
 import com.amonteiro.a23_01_wis.viewmodel.WeatherViewModel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -31,8 +36,34 @@ public class WeatherActivity extends AppCompatActivity {
 
         //clic du bouton
         binding.btLoad.setOnClickListener(v -> {
-            model.loadData("Nice");
+            //Est ce que j'ai la permission ?
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //On a la permission
+                model.loadDataWithPosition(this);
+            }
+            else {
+                //demande de permission avec une popup -> déclanche onRequestPermissionResult
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            }
         });
+    }
+
+    //Callback de la demande de permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //Est ce que j'ai la permission ?
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            //On a la permission
+            model.loadDataWithPosition(this);
+        }
+        else {
+            model.getErrorMessage().postValue("Il faut la permission");
+        }
     }
 
     private void observe(){

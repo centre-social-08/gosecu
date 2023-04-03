@@ -1,7 +1,5 @@
 package com.amonteiro.a23_01_wis.viewmodel;
 
-import android.view.View;
-
 import com.amonteiro.a23_01_wis.RequestUtils;
 import com.amonteiro.a23_01_wis.beans.PokemonUnitBean;
 

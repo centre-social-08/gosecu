@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Créer un Match :"
+        android:text="Ajouter un outil :"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#7E57C2" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
 
-        android:hint="Equipe 1"
+        android:hint="Outil"
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -37,14 +37,15 @@
         android:id="@+id/tilTeam2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Equipe 2"
-        app:errorEnabled="true">
+        android:hint="Quantité"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTeam2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:padding="10dp"
+            android:inputType="number"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>

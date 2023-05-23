@@ -27,9 +27,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="Toulouse" />
+                tools:text="Outil" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -55,47 +55,15 @@
                     android:paddingRight="10dp"
                     app:srcCompat="@android:drawable/ic_input_add" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="-"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
                 <ImageView
-                    android:id="@+id/ivAddT2"
+                    android:id="@+id/ivRemoveT1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="?selectableItemBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:srcCompat="@android:drawable/ic_input_add" />
-
-                <TextView
-                    android:id="@+id/tvScore2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    tools:text="1" />
+                    android:layout_weight="1"
+                    app:srcCompat="@android:drawable/ic_input_delete" />
 
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tvT2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="Toulouse" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

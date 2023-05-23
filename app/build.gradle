@@ -55,4 +55,6 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:8.+'
     //Pour les photos
     implementation 'com.squareup.picasso:picasso:2.8'
+
+    testImplementation "org.mockito:mockito-core:3.+"
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.amonteiro.a23_01_wis.beans.MatchBean;
+import com.amonteiro.a23_01_wis.beans.ToolBean;
 import com.amonteiro.a23_01_wis.databinding.ActivityCreateGameBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,21 +25,21 @@ public class CreateGameActivity extends AppCompatActivity {
 
         binding.tvAdd.setOnClickListener(v -> {
             String text = binding.etTeam1.getText().toString().trim();
-            String text2 = binding.etTeam2.getText().toString().trim();
+            int text2 = Integer.parseInt(binding.etTeam2.getText().toString().trim());
 
             if (text.length() < 3) {
                 binding.etTeam1.setError("Il faut au moins 3 caractères");
             }
-            else if (text2.length() < 3) {
-                binding.etTeam1.setError("Il faut au moins 3 caractères");
+            else if (text2 == 0) {
+                binding.etTeam2.setError("Indiquez un nombre");
             }
             else if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                 finish();
             }
             else {
                 //Nouveau Match
-                MatchBean match = new MatchBean(null, text, text2, null, 0, 0, new Date().getTime());
-                MatchFirebaseRepo.create(match)
+                ToolBean Tool = new ToolBean(null, text, text2);
+                ToolFirebaseRepo.create(Tool)
                         //Callback ca marche
                         .addOnSuccessListener(documentReference -> {
                             //Je tue l'écran courant cela retourne sur l'écran précédent

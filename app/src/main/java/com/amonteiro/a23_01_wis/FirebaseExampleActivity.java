@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.amonteiro.a23_01_wis.beans.MatchBean;
+import com.amonteiro.a23_01_wis.beans.ToolBean;
 import com.amonteiro.a23_01_wis.databinding.ActivityFirebaseExampleBinding;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
@@ -76,15 +76,14 @@ public class FirebaseExampleActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
-        FirestoreRecyclerOptions<MatchBean> option = new FirestoreRecyclerOptions
-                .Builder<MatchBean>()
-                .setQuery(MatchFirebaseRepo.getAllMatch(), MatchBean.class)
+        FirestoreRecyclerOptions<ToolBean> option = new FirestoreRecyclerOptions
+                .Builder<ToolBean>()
+                .setQuery(ToolFirebaseRepo.getAllTool(), ToolBean.class)
                 //Réglages dans le onStart car Firebase se deco quand l'écran n'est plus visible
                 //Indiquer dans la doc de setLifecycleOwner
                 .setLifecycleOwner(this)
                 .build();
-        binding.rv.setAdapter(new MatchAdapter(option));
+        binding.rv.setAdapter(new ToolAdapter(option));
 
         refreshScreen();
     }
@@ -110,14 +109,18 @@ public class FirebaseExampleActivity extends AppCompatActivity {
             binding.fab.setVisibility(View.GONE);
             binding.tvName.setText("---");
             binding.ivProfile.setVisibility(View.GONE);
+            binding.rv.setVisibility(View.GONE);
+            binding.textView2.setText("Veuillez vous connecter");
         }
         else {
             //J'ai un utilisateur
             binding.tvConnexion.setVisibility(View.GONE);
+            binding.rv.setVisibility(View.VISIBLE);
             binding.tvDeconnexion.setVisibility(View.VISIBLE);
             binding.fab.setVisibility(View.VISIBLE);
             binding.tvName.setText(user.getDisplayName());
             binding.ivProfile.setVisibility(View.VISIBLE);
+            binding.textView2.setText("Liste des outils : ");
             Picasso.get().load(user.getPhotoUrl()).into( binding.ivProfile);
         }
     }
